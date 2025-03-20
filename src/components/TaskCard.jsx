@@ -100,7 +100,25 @@ export default function TaskCard({
         </div>
       )}
 
-      {/* Subtasks will be added in next iteration */}
+      {totalSubtasks > 0 && (
+        <div className="card-subtasks-preview">
+          <div className="subtasks-info">
+            <CheckSquare size={13} className="subtask-icon" />
+            <span>
+              {completedSubtasks}/{totalSubtasks} subtasks
+            </span>
+          </div>
+          <div className="subtasks-bar">
+            <div
+              className="subtasks-bar-fill"
+              style={{
+                width: `${subtasksPercent}%`,
+                backgroundColor: subtasksPercent === 100 ? '#10b981' : '#6366f1',
+              }}
+            />
+          </div>
+        </div>
+      )}
 
       <div className="card-footer">
         <div className={`due-date ${isOverdue ? 'overdue' : ''}`}>

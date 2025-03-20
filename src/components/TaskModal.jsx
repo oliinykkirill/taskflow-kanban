@@ -258,7 +258,60 @@ export default function TaskModal({
             </div>
           </div>
 
-          
+          <div className="form-group">
+            <label className="form-label">
+              Subtasks Checklist ({subtasks.filter((s) => s.completed).length}/
+              {subtasks.length})
+            </label>
+
+            <div className="subtasks-list">
+              {subtasks.map((st) => (
+                <div key={st.id} className="subtask-item">
+                  <button
+                    type="button"
+                    className="subtask-checkbox"
+                    onClick={() => handleToggleSubtask(st.id)}
+                  >
+                    {st.completed ? (
+                      <CheckSquare size={16} className="text-emerald" />
+                    ) : (
+                      <Square size={16} />
+                    )}
+                  </button>
+                  <span className={`subtask-text ${st.completed ? 'completed' : ''}`}>
+                    {st.text}
+                  </span>
+                  <button
+                    type="button"
+                    className="subtask-remove"
+                    onClick={() => handleDeleteSubtask(st.id)}
+                  >
+                    <Trash2 size={13} />
+                  </button>
+                </div>
+              ))}
+            </div>
+
+            <div className="subtask-add-row">
+              <input
+                type="text"
+                className="form-input form-input-subtask"
+                placeholder="Add checklist item..."
+                value={newSubtaskText}
+                onChange={(e) => setNewSubtaskText(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    handleAddSubtask();
+                  }
+                }}
+              />
+              <button type="button" className="btn-secondary" onClick={handleAddSubtask}>
+                <Plus size={15} />
+                <span>Add</span>
+              </button>
+            </div>
+          </div>
 
           <div className="modal-footer">
             {isEditing && (
